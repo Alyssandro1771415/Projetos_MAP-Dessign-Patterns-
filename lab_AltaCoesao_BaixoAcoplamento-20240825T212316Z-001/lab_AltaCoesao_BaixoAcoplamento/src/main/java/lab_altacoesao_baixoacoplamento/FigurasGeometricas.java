@@ -20,9 +20,9 @@ public class FigurasGeometricas {
 		this.larguraQuadrado = lado;
 		this.raioCirculo = raio;
 	}
-	
+
 	// O nome do método?
-	public void a(int tipoDaFigura){
+	public void areaDaFigura(int tipoDaFigura){
 
 		// Switch case?
 		switch (tipoDaFigura) {
@@ -44,9 +44,9 @@ public class FigurasGeometricas {
 			break;
 		}
 	}
-	
+
 	// O nome do método?
-	public int p(int tipoDaFigura){
+	public int perimetroDafigura(int tipoDaFigura){
 		
 		int perimetro;
 		
