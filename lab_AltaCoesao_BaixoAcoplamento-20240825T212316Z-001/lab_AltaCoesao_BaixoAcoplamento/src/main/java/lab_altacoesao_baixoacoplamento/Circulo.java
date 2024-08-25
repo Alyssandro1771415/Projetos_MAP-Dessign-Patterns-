@@ -1,6 +1,7 @@
 package lab_altacoesao_baixoacoplamento;
 
 public class Circulo implements Figura {
+    
     private double raio;
 
     public double getRaio() {
