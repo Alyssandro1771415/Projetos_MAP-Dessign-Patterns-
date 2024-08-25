@@ -3,33 +3,43 @@ package lab_altacoesao_baixoacoplamento;
 
 public class FigurasGeometricas {
 	
-	private int alturaRetangulo;
-	private int larguraRetangulo;
-	private int larguraQuadrado;
-	private int raioCirculo; 
+	private Quadrado quadrado;
+	private Circulo circulo;
+	private Retangulo retangulo;
 	
-	public FigurasGeometricas(int altura, int largura, int lado, int raio){
-		this.alturaRetangulo = altura;
-		this.larguraRetangulo = largura;
-		this.larguraQuadrado = lado;
-		this.raioCirculo = raio;
+	public Quadrado getQuadrado() {
+		return quadrado;
 	}
 
-	public void areaDaFigura(int tipoDaFigura){
-
-		
-
+	public void setQuadrado(Quadrado quadrado) {
+		this.quadrado = quadrado;
 	}
 
-	public int perimetroDafigura(int tipoDaFigura){
-		
-		
-
+	public Circulo getCirculo() {
+		return circulo;
 	}
-	
-	public String toStringDaFigura(int tipoDaFigura){
-		
 
+	public void setCirculo(Circulo circulo) {
+		this.circulo = circulo;
+	}
 
+	public Retangulo getRetangulo() {
+		return retangulo;
+	}
+
+	public void setRetangulo(Retangulo retangulo) {
+		this.retangulo = retangulo;
+	}
+
+	public FigurasGeometricas(int alturaRetangulo, int larguraRetangulo, int ladoQuadrado, int raioCirculo){
+		this.quadrado = new Quadrado(ladoQuadrado);
+		this.circulo = new Circulo(raioCirculo);
+		this.retangulo = new Retangulo(larguraRetangulo, alturaRetangulo);
+	}
+
+	public String toString(){
+		return ("O ret�ngulo criado tem altura: " + this.retangulo.getAltura() + " e largura de: " + this.retangulo.getLargura() +
+		" O quadrado criado tem lados de: " + this.quadrado.getLargura() +
+		" O circulo criado tem raio de: " + this.circulo.getRaio());
 	}
 }
