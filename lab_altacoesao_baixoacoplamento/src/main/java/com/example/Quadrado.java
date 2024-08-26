@@ -1,4 +1,4 @@
-package lab_altacoesao_baixoacoplamento;
+package com.example;
 
 public class Quadrado extends Retangulo {
 

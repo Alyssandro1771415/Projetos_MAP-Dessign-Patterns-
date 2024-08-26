@@ -1,4 +1,4 @@
-package lab_altacoesao_baixoacoplamento;
+package com.example;
 
 public class Circulo implements Figura {
     
@@ -9,10 +9,16 @@ public class Circulo implements Figura {
     }
 
     public void setRaio(double raio) {
+        if (raio < 0) {
+            throw new IllegalArgumentException("O raio não pode ser negativo.");
+        }
         this.raio = raio;
     }
 
     public Circulo(double raio) {
+        if (raio < 0) {
+            throw new IllegalArgumentException("O raio não pode ser negativo.");
+        }
         this.raio = raio;
     }
 
@@ -28,8 +34,6 @@ public class Circulo implements Figura {
     
     @Override
     public String toString() {
-        return (" O circulo criado tem raio de: " + getRaio());
+        return "O círculo criado tem raio de: " + getRaio();
     }
-
-    
 }

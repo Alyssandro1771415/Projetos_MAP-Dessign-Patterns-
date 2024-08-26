@@ -1,5 +1,4 @@
-package lab_altacoesao_baixoacoplamento;
-
+package com.example;
 
 public class FigurasGeometricas {
 	
@@ -38,8 +37,8 @@ public class FigurasGeometricas {
 	}
 
 	public String toString(){
-		return ("O ret�ngulo criado tem altura: " + this.retangulo.getAltura() + " e largura de: " + this.retangulo.getLargura() +
-		" O quadrado criado tem lados de: " + this.quadrado.getLargura() +
-		" O circulo criado tem raio de: " + this.circulo.getRaio());
+		return ("O retângulo criado tem altura: " + this.retangulo.getAltura() + " e largura de: " + this.retangulo.getLargura() + ".\n" +
+		"O quadrado criado tem lados de: " + this.quadrado.getLargura() + ".\n" +
+		"O circulo criado tem raio de: " + this.circulo.getRaio()) + ".";
 	}
 }

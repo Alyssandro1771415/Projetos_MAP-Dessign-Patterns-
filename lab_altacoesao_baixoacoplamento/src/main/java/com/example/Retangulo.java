@@ -1,4 +1,4 @@
-package lab_altacoesao_baixoacoplamento;
+package com.example;
 
 public class Retangulo implements Figura {
     private double largura;
@@ -9,6 +9,9 @@ public class Retangulo implements Figura {
     }
 
     public void setLargura(double largura) {
+        if(largura < 0){
+            throw new IllegalArgumentException("Valores negativos inválidos para largura.");
+        }
         this.largura = largura;
     }
 
@@ -17,10 +20,16 @@ public class Retangulo implements Figura {
     }
 
     public void setAltura(double altura) {
+        if(largura < 0){
+            throw new IllegalArgumentException("Valores negativos inválidos para altura.");
+        }
         this.altura = altura;
     }
 
     public Retangulo(double largura, double altura) {
+        if(largura < 0 || altura < 0){
+            throw new IllegalArgumentException("Valores negativos inválidos.");
+        }
         this.largura = largura;
         this.altura = altura;
     }
