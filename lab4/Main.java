@@ -43,8 +43,5 @@ public class Main {
         //Exibindo filmografia do ator
         System.out.println(controleGloboFilmes.getFuncionario("11111111113"));
         System.out.println(controleGloboFilmes.getFuncionario("11111111113").toStringFilmografia());
-
-        System.out.println(controleGloboFilmes.getFuncionario("11111111112"));
-        System.out.println(controleGloboFilmes.getFuncionario("11111111112").toStringFilmografia());
     }
 }

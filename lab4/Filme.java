@@ -5,10 +5,9 @@ import java.util.Map;
 import java.util.Set;
 
 public class Filme {
-    private String nome;
+    private String nome, id;
     private int ano;
-    private String id;
-    private Map<Funcionario, List<Funcao>> funcionarios; // Mapeia funcionarios para listas de funcoes
+    private Map<String, Map<String, List<String>>> funcionarios; // CPF -> Nome -> Lista de funções
     private String trilhaSonora;
 
     public Filme(String nome, int ano, String id) {
@@ -30,28 +29,40 @@ public class Filme {
         return id;
     }
 
-    public Map<Funcionario, List<Funcao>> getFuncionarios() {
+    public Map<String, Map<String, List<String>>> getFuncionarios() {
         return funcionarios;
     }
 
-    public void adicionarNoFilme(Funcionario funcionario, Funcao funcao) {
-        funcionarios.computeIfAbsent(funcionario, k -> new ArrayList<>()).add(funcao);
+    public void adicionarNoFilme(String cpf, String nome, String funcao) {
+        // Adiciona um novo mapa se o CPF ainda não estiver presente
+        Map<String, List<String>> mapaNomeFuncoes = funcionarios.computeIfAbsent(cpf, k -> new HashMap<>());
+
+        // Adiciona uma nova lista de funções se o nome ainda não estiver presente
+        List<String> listaFuncoes = mapaNomeFuncoes.computeIfAbsent(nome, k -> new ArrayList<>());
+
+        // Adiciona a função se não estiver presente
+        if (!listaFuncoes.contains(funcao)) {
+            listaFuncoes.add(funcao);
+        } else {
+            System.out.println("A função já está associada ao funcionário.");
+        }
     }
 
-    public void atualizarFuncoes(Funcionario funcionario, Funcao novaFuncao) {
-        List<Funcao> funcoes = funcionarios.get(funcionario);
-        if (funcoes != null) {
-            // Verifica se a função já existe
-            for (Funcao funcao : funcoes) {
-                if (funcao.equals(novaFuncao)) {
+    public void atualizarFuncoes(String cpf, String nome, String novaFuncao) {
+        Map<String, List<String>> mapaNomeFuncoes = funcionarios.get(cpf);
+        if (mapaNomeFuncoes != null) {
+            List<String> listaFuncoes = mapaNomeFuncoes.get(nome);
+            if (listaFuncoes != null) {
+                if (!listaFuncoes.contains(novaFuncao)) {
+                    listaFuncoes.add(novaFuncao);
+                } else {
                     System.out.println("A função já está associada ao funcionário.");
-                    return;
                 }
+            } else {
+                System.out.println("Nome do funcionário não encontrado.");
             }
-            // Adiciona a nova função se não estiver presente
-            funcoes.add(novaFuncao);
         } else {
-            System.out.println("Funcionário não encontrado. Primeiro adicione-o ao filme desejado.");
+            System.out.println("CPF não encontrado.");
         }
     }
 
@@ -66,16 +77,19 @@ public class Filme {
         sb.append(String.format("Filme: %s (%d)\n", nome, ano));
         sb.append(String.format("Trilha sonora: %s\n", trilhaSonora));
         sb.append("\nFuncionarios e Funcoes:\n");
-        sb.append(String.format("%-30s %-20s\n", "Funcionario", "Funcao"));
-        sb.append("--------------------------------------------\n");
+        sb.append(String.format("%-30s %-30s %-20s\n", "CPF", "Funcionario", "Funcao"));
+        sb.append("--------------------------------------------------------------------\n");
 
-        // Adiciona as informacoes dos funcionarios e suas funcoes
-        Set<Map.Entry<Funcionario, List<Funcao>>> entries = funcionarios.entrySet();
-        for (Map.Entry<Funcionario, List<Funcao>> entry : entries) {
-            Funcionario funcionario = entry.getKey();
-            List<Funcao> funcoes = entry.getValue();
-            for (Funcao funcao : funcoes) {
-                sb.append(String.format("%-30s %-20s\n", funcionario.getNome(), funcao.getDescricao()));
+        // Adiciona as informações dos funcionários e suas funções
+        for (Map.Entry<String, Map<String, List<String>>> entryCpf : funcionarios.entrySet()) {
+            String cpf = entryCpf.getKey();
+            Map<String, List<String>> mapaNomeFuncoes = entryCpf.getValue();
+            for (Map.Entry<String, List<String>> entryNome : mapaNomeFuncoes.entrySet()) {
+                String nome = entryNome.getKey();
+                List<String> funcoes = entryNome.getValue();
+                for (String funcao : funcoes) {
+                    sb.append(String.format("%-30s %-30s %-20s\n", cpf, nome, funcao));
+                }
             }
         }
         sb.append("_____________________________________________________________________\n");

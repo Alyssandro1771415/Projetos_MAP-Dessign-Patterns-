@@ -7,7 +7,7 @@ public class Funcionario {
     private String nome;
     private String cpf;
     private List<Funcao> funcoes;
-    private Map<Filme, List<Funcao>> filmografia;
+    private Map<String, List<Funcao>> filmografia; // NomeFilme/FuncaoNoFilme
 
     public Funcionario(String nome, String cpf) {
         this.nome = nome;
@@ -16,15 +16,15 @@ public class Funcionario {
         this.filmografia = new HashMap<>();
     }
 
-    public void adicionarFilme(Funcao funcao, Filme filme) {
+    public void adicionarFilme(Funcao funcao, String filmeCodigo) {
         // Verifica se o filme já está na filmografia
-        List<Funcao> funcoesNoFilme = this.filmografia.get(filme);
+        List<Funcao> funcoesNoFilme = this.filmografia.get(filmeCodigo);
 
         // Se o filme não estiver na filmografia, cria uma nova lista de funcoes e
         // adiciona o filme
         if (funcoesNoFilme == null) {
             funcoesNoFilme = new ArrayList<>();
-            this.filmografia.put(filme, funcoesNoFilme);
+            this.filmografia.put(filmeCodigo, funcoesNoFilme);
         }
 
         // Adiciona a funcao à lista de funcoes para o filme
@@ -40,7 +40,7 @@ public class Funcionario {
     }
 
 
-    public void adicionarFuncao(Filme filme, Funcao novaFuncao) {
+    public void adicionarFuncao(String filmeCodigo, Funcao novaFuncao) {
         // Verifica se a função já está na lista de funções do funcionário
         if (this.funcoes.contains(novaFuncao)) {
             System.out.println("Erro: A função já está atribuída ao funcionário.");
@@ -51,12 +51,12 @@ public class Funcionario {
         this.funcoes.add(novaFuncao);
         
         // Atualiza a filmografia
-        List<Funcao> funcoesNoFilme = this.filmografia.get(filme);
+        List<Funcao> funcoesNoFilme = this.filmografia.get(filmeCodigo);
     
         if (funcoesNoFilme == null) {
             // Se o filme não estiver na filmografia, cria uma nova lista de funções e adiciona o filme
             funcoesNoFilme = new ArrayList<>();
-            this.filmografia.put(filme, funcoesNoFilme);
+            this.filmografia.put(filmeCodigo, funcoesNoFilme);
         }
     
         // Verifica se a função já está associada ao filme
@@ -81,38 +81,27 @@ public class Funcionario {
         return this.funcoes;
     }
 
-    public Map<Filme, List<Funcao>> getFilmografia() {
+    public Map<String, List<Funcao>> getFilmografia() {
         return this.filmografia;
     }
 
     public String toStringFilmografia() {
-        if (this.filmografia.isEmpty()) {
-            return "\n\nFilmografia: Nenhum filme associado.";
-        }
-
         StringBuilder sb = new StringBuilder();
-        sb.append("Filmografia de ").append(this.nome).append(":\n");
+        sb.append("_____________________________________________________________________\n");
+        sb.append("Filmografia de: " + this.nome + "\n");
+        sb.append(String.format("%-30s %-30s\n", "Filme", "Funcao"));
+        sb.append("--------------------------------------------\n");
 
-        // Percorre cada entrada no mapa filmografia
-        for (Map.Entry<Filme, List<Funcao>> entry : this.filmografia.entrySet()) {
-            Filme filme = entry.getKey();
-            List<Funcao> funcoesNoFilme = entry.getValue();
-
-            // Adiciona o nome e ano do filme
-            sb.append("- ").append(filme.getNome()).append(" (").append(filme.getAno()).append(")\n");
-
-            // Adiciona as funcoes desempenhadas pelo funcionário no filme
-            sb.append("  Funcoes desempenhadas: ");
-            if (funcoesNoFilme.isEmpty()) {
-                sb.append("Nenhuma funcao atribuída neste filme.\n");
-            } else {
-                sb.append(funcoesNoFilme.stream()
-                        .map(Funcao::getDescricao)
-                        .reduce((a, b) -> a + ", " + b)
-                        .orElse("Nenhuma funcao atribuída neste filme.")).append("\n");
+        // Adiciona as informações da filmografia
+        for (Map.Entry<String, List<Funcao>> entry : filmografia.entrySet()) {
+            String filme = entry.getKey();
+            List<Funcao> funcoes = entry.getValue();
+            for (Funcao funcao : funcoes) {
+                sb.append(String.format("%-30s %-30s\n", filme, funcao.getDescricao()));
             }
         }
 
+        sb.append("_____________________________________________________________________\n");
         return sb.toString();
     }
 

@@ -31,9 +31,9 @@ public class ControleDeAcesso {
         Funcionario funcionario = getFuncionario(funcionarioCpf);
 
         // Adiciona o funcionário ao elenco geral do filme na classe FILME
-        filme.adicionarNoFilme(funcionario, funcao);
+        filme.adicionarNoFilme(funcionario.getCpf(), funcionario.getNome(), funcao.getDescricao());
         // Adiciona o filme na filmografia do usuario junto de sua funcao especifica neste filme
-        funcionario.adicionarFilme(funcao, filme);
+        funcionario.adicionarFilme(funcao, filme.getNome()+"-ID:"+filme.getId());
     }
 
     public void atualizarFuncaoEmFilme(String filmeId, String funcionarioCpf, Funcao funcao){
@@ -41,9 +41,9 @@ public class ControleDeAcesso {
         Funcionario funcionario = getFuncionario(funcionarioCpf);
 
         // Adiciona o funcionário ao elenco geral do filme na classe FILME
-        filme.atualizarFuncoes(funcionario, funcao);
+        filme.atualizarFuncoes(funcionario.getCpf(), funcionario.getNome(), funcao.getDescricao());
         // Adiciona o filme na filmografia do usuario junto de sua funcao especifica neste filme
-        funcionario.adicionarFuncao(filme, funcao);
+        funcionario.adicionarFuncao(filme.getNome()+"-ID:"+filme.getId(), funcao);
     }
 
     public Filme cadastrarFilme(String nomeFilme, int anoFilme, String filmeId) {
