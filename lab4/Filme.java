@@ -1,167 +1,84 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
-import java.util.Scanner;
+import java.util.Set;
 
 public class Filme {
-    private String filmeId;
     private String nome;
-    private Funcionario diretor;
-    private Funcionario roteirista;
-    private List<String> listaTrilhaSonora;
     private int ano;
-    private Map<String, Funcionario> elenco;
-    private Map<String, Funcionario> produtores;
+    private String id;
+    private Map<Funcionario, List<Funcao>> funcionarios; // Mapeia funcionarios para listas de funcoes
+    private String trilhaSonora;
 
-    public Filme(String nome, int ano, String filmeId) {
+    public Filme(String nome, int ano, String id) {
         this.nome = nome;
         this.ano = ano;
-        this.filmeId = filmeId;
-        this.elenco = new HashMap<>();
-        this.produtores = new HashMap<>();
-        this.listaTrilhaSonora = new ArrayList<>();
-    }
-
-    public void setProdutores(Map<String, Funcionario> produtores) {
-        this.produtores = produtores;
-    }
-
-    public List<Funcao> atribuirFuncaoFuncionario(String cpf, int opcao) {
-        
-        Funcionario funcionario = elenco.get(cpf);
-        if (funcionario == null) {
-            System.out.println("Funcionario não encontrado no elenco.");
-            return null;
-        }
-
-        try {
-            System.out.print("Nome do funcionario: "+funcionario.getNome() + " , ");
-            switch (opcao) {
-                case 1:
-                    System.out.println("Funcao escolhida: Ator");
-                    funcionario.adicionarFuncao(new Ator());
-                    break;
-                case 2:
-                    System.out.println("Funcao escolhida: Diretor");
-                    funcionario.adicionarFuncao(new Diretor());
-                    setDiretor(funcionario); 
-                    break;
-                case 3:
-                    System.out.println("Funcao escolhida: Roteirista");
-                    funcionario.adicionarFuncao(new Roteirista());
-                    setRoteirista(funcionario); 
-                    break;
-                case 4:
-                    System.out.println("Funcao escolhida: Produtor");
-                    if (produtores.containsKey(cpf)) {
-                        System.out.println("O funcionario ja esta como produtor.");
-                    } else {
-                        funcionario.adicionarFuncao(new Produtor());
-                        adicionarNaProducao(funcionario);
-                    }
-                    break;
-                case 5:
-                    System.out.println("Funcao escolhida: Cinegrafista");
-                    funcionario.adicionarFuncao(new Cinegrafista());
-                    break;
-                case 6:
-                    System.out.println("Funcao escolhida: Camera");
-                    funcionario.adicionarFuncao(new Camera());
-                    break;
-                case 0:
-                    System.out.println("Saindo do menu...");
-                    break;
-                default:
-                    System.out.println("Opcao invalida. Tente novamente.");
-                    break;
-            }
-        } catch (Exception e) {
-            System.out.println("Entrada invalida.");
-            return null;
-        }
-        
-        return funcionario.getFuncoes();
-    }
-
-    public String getFilmeId() {
-        return this.filmeId;
-    }
-
-    public void setDiretor(Funcionario diretor) {
-        this.diretor = diretor;
-    }
-
-    public void setRoteirista(Funcionario roteirista) {
-        this.roteirista = roteirista;
-    }
-
-    public void setTrilhaSonora(String trilhaSonora) {
-        this.listaTrilhaSonora.add(trilhaSonora);
-    }
-
-    public void adicionarAoElenco(Funcionario funcionario) {
-        if (!elenco.containsKey(funcionario.getCpf())) {
-            elenco.put(funcionario.getCpf(), funcionario);
-        }
-    }
-
-    public void adicionarNaProducao(Funcionario funcionario) {
-        if (!produtores.containsKey(funcionario.getCpf())) {
-            produtores.put(funcionario.getCpf(), funcionario);
-        }
+        this.id = id;
+        this.funcionarios = new HashMap<>();
     }
 
     public String getNome() {
-        return this.nome;
+        return nome;
     }
 
     public int getAno() {
-        return this.ano;
+        return ano;
     }
 
-    public Funcionario getDiretor() {
-        return this.diretor;
+    public String getId() {
+        return id;
     }
 
-    public Funcionario getRoteirista() {
-        return this.roteirista;
+    public Map<Funcionario, List<Funcao>> getFuncionarios() {
+        return funcionarios;
     }
 
-    public List<String> getTrilhaSonora() {
-        return this.listaTrilhaSonora;
+    public void adicionarNoFilme(Funcionario funcionario, Funcao funcao) {
+        funcionarios.computeIfAbsent(funcionario, k -> new ArrayList<>()).add(funcao);
     }
 
-    public Map<String, Funcionario> getElenco() {
-        return this.elenco;
+    public void atualizarFuncoes(Funcionario funcionario, Funcao novaFuncao) {
+        List<Funcao> funcoes = funcionarios.get(funcionario);
+        if (funcoes != null) {
+            // Verifica se a função já existe
+            for (Funcao funcao : funcoes) {
+                if (funcao.equals(novaFuncao)) {
+                    System.out.println("A função já está associada ao funcionário.");
+                    return;
+                }
+            }
+            // Adiciona a nova função se não estiver presente
+            funcoes.add(novaFuncao);
+        } else {
+            System.out.println("Funcionário não encontrado. Primeiro adicione-o ao filme desejado.");
+        }
     }
 
-    public Map<String, Funcionario> getProdutores() {
-        return this.produtores;
+    public void setTrilhaSonora(String trilhaSonora) {
+        this.trilhaSonora = trilhaSonora;
     }
 
     @Override
     public String toString() {
-        String elencoNomes = elenco.values().stream()
-                .map(Funcionario::getNome)
-                .reduce((a, b) -> a + ", " + b)
-                .orElse("Nenhum");
+        StringBuilder sb = new StringBuilder();
+        sb.append("_____________________________________________________________________\n");
+        sb.append(String.format("Filme: %s (%d)\n", nome, ano));
+        sb.append(String.format("Trilha sonora: %s\n", trilhaSonora));
+        sb.append("\nFuncionarios e Funcoes:\n");
+        sb.append(String.format("%-30s %-20s\n", "Funcionario", "Funcao"));
+        sb.append("--------------------------------------------\n");
 
-        String produtoresNomes = produtores.values().stream()
-                .map(Funcionario::getNome)
-                .reduce((a, b) -> a + ", " + b)
-                .orElse("Nenhum");
-
-        String trilhaSonoraNomes = listaTrilhaSonora.stream()
-                .reduce((a, b) -> a + ", " + b)
-                .orElse("Nenhum");
-
-        return "\nFilme: " + nome + "\n" + "Numero Identificador: " + this.filmeId + "\n" +
-               "Diretor: " + (diretor != null ? diretor.getNome() : "Nao informado") + "\n" +
-               "Roteirista: " + (roteirista != null ? roteirista.getNome() : "Nao informado") + "\n" +
-               "Trilha Sonora: " + trilhaSonoraNomes + "\n" +
-               "Ano: " + ano + "\n" +
-               "Elenco: " + elencoNomes + "\n" +
-               "Producao: " + produtoresNomes;
+        // Adiciona as informacoes dos funcionarios e suas funcoes
+        Set<Map.Entry<Funcionario, List<Funcao>>> entries = funcionarios.entrySet();
+        for (Map.Entry<Funcionario, List<Funcao>> entry : entries) {
+            Funcionario funcionario = entry.getKey();
+            List<Funcao> funcoes = entry.getValue();
+            for (Funcao funcao : funcoes) {
+                sb.append(String.format("%-30s %-20s\n", funcionario.getNome(), funcao.getDescricao()));
+            }
+        }
+        sb.append("_____________________________________________________________________\n");
+        return sb.toString();
     }
 }
