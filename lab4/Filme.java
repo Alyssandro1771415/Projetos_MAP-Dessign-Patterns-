@@ -156,7 +156,7 @@ public class Filme {
                 .reduce((a, b) -> a + ", " + b)
                 .orElse("Nenhum");
 
-        return "\n\n\nFilme: " + nome + "\n" + "Numero Identificador: " + this.filmeId + "\n" +
+        return "\nFilme: " + nome + "\n" + "Numero Identificador: " + this.filmeId + "\n" +
                "Diretor: " + (diretor != null ? diretor.getNome() : "Nao informado") + "\n" +
                "Roteirista: " + (roteirista != null ? roteirista.getNome() : "Nao informado") + "\n" +
                "Trilha Sonora: " + trilhaSonoraNomes + "\n" +

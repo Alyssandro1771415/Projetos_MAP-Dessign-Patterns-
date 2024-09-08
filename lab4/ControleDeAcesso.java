@@ -4,7 +4,6 @@ import java.util.Map;
 public class ControleDeAcesso {
     private Map<String, Filme> filmes; // Mapa para filmes usando o código do filme
     private Map<String, Funcionario> funcionarios; // Mapa para funcionários usando o CPF
-    int ATOR = 1; int DIRETOR = 2; int ROTEIRISTA = 3; int PRODUTOR = 4;int CINEGRAFISTA = 5;int CAMERA = 6;
     
     public ControleDeAcesso() {
         this.filmes = new HashMap<>();
@@ -53,7 +52,7 @@ public class ControleDeAcesso {
     public Filme cadastrarFilme(String nomeFilme, int anoFilme, String filmeId) {
         Filme novoFilme = new Filme(nomeFilme, anoFilme, filmeId);
         filmes.put(filmeId, novoFilme); 
-        System.out.println("\nFilme cadastrado com sucesso!\n");
+        System.out.println("\nFilme " + "'"+nomeFilme + "' cadastrado com sucesso!\n");
         return novoFilme;
     }
 
@@ -61,10 +60,11 @@ public class ControleDeAcesso {
         if (filmes.isEmpty()) {
             System.out.println("Nenhum filme cadastrado.");
         } else {
-            System.out.println("\nFilmes cadastrados:");
+            System.out.print("----------------------------------------------\nFilmes cadastrados:\n");
             for (Filme filme : filmes.values()) {
-                System.out.println(filme);
+                System.out.println(filme.toString());
             }
+            System.out.print("\n----------------------------------------------\n");
         }
     }
 

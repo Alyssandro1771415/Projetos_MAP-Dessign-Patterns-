@@ -41,6 +41,7 @@ public class Funcionario {
 
     // Método para imprimir a filmografia de forma organizada
     public String toStringFilmografia() {
+        
         if (this.filmografia.isEmpty()) {
             return "\n\nFilmografia: Nenhum filme associado.";
         }
@@ -69,12 +70,10 @@ public class Funcionario {
 
         return
             "___________________________________________\n" +
-            "Funcionario:\n" +
-            "-----------------------------------\n" +
-            "Nome: " + this.nome + "\n" +
+            "Funcionario: " + this.nome + "\n" +
             "CPF: " + this.cpf + "\n" +
             "Funcoes:\n" + descricaoFuncoes +
-            "-----------------------------------";
+            "___________________________________________";
     }
 
 }
