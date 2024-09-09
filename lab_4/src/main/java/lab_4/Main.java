@@ -1,3 +1,5 @@
+package lab_4;
+
 public class Main {
     
     public static final Funcao ATOR = new Ator();

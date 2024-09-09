@@ -1,3 +1,5 @@
+package lab_4;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ public class Filme {
         return funcionarios;
     }
 
-    public void adicionarNoFilme(String cpf, String nome, String funcao) {
+    public boolean adicionarNoFilme(String cpf, String nome, String funcao) {
         // Adiciona um novo mapa se o CPF ainda não estiver presente
         Map<String, List<String>> mapaNomeFuncoes = funcionarios.computeIfAbsent(cpf, k -> new HashMap<>());
 
@@ -43,8 +45,10 @@ public class Filme {
         // Adiciona a função se não estiver presente
         if (!listaFuncoes.contains(funcao)) {
             listaFuncoes.add(funcao);
+            return true;
         } else {
             System.out.println("A função já está associada ao funcionário.");
+            return false;
         }
     }
 
