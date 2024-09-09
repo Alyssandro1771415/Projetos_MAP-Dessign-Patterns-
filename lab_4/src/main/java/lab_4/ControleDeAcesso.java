@@ -21,49 +21,77 @@ public class ControleDeAcesso {
     }
 
     public Funcionario cadastrarFuncionario(String nomeFuncionario, String funcionarioCPF) {
-        Funcionario novoFuncionario = new Funcionario(nomeFuncionario, funcionarioCPF);
-        funcionarios.put(funcionarioCPF, novoFuncionario);
-        System.out.println("Funcionario cadastrado com sucesso!");
+        
+        try{
+            Funcionario novoFuncionario = new Funcionario(nomeFuncionario, funcionarioCPF);
+            funcionarios.put(funcionarioCPF, novoFuncionario);
+            System.out.println("Funcionario cadastrado com sucesso!");
 
-        return novoFuncionario;
+            return novoFuncionario;
+        } catch(Exception e){
+            System.out.println("Ocorreu um erro ao cadastrar o funcionário: " + e);
+            return null;
+        }
+        
     }
 
     public void adicionarAoFilme(String filmeId, String funcionarioCpf, Funcao funcao) {
-        Filme filme = filmes.get(filmeId);
-        Funcionario funcionario = getFuncionario(funcionarioCpf);
 
-        // Adiciona o funcionário ao elenco geral do filme na classe FILME
-        filme.adicionarNoFilme(funcionario.getCpf(), funcionario.getNome(), funcao.getDescricao());
-        // Adiciona o filme na filmografia do usuario junto de sua funcao especifica neste filme
-        funcionario.adicionarFilme(funcao, filme.getNome()+"-ID:"+filme.getId());
+        try{
+            Filme filme = filmes.get(filmeId);
+            Funcionario funcionario = getFuncionario(funcionarioCpf);
+
+            // Adiciona o funcionário ao elenco geral do filme na classe FILME
+            filme.adicionarNoFilme(funcionario.getCpf(), funcionario.getNome(), funcao.getDescricao());
+            // Adiciona o filme na filmografia do usuario junto de sua funcao especifica neste filme
+            funcionario.adicionarFilme(funcao, filme.getNome()+"-ID:"+filme.getId());
+        } catch(Exception e){
+            System.out.println("Houve um problema ao adicionar as informações: " + e);
+        }
     }
 
     public void atualizarFuncaoEmFilme(String filmeId, String funcionarioCpf, Funcao funcao){
-        Filme filme = filmes.get(filmeId);
-        Funcionario funcionario = getFuncionario(funcionarioCpf);
 
-        // Adiciona o funcionário ao elenco geral do filme na classe FILME
-        filme.atualizarFuncoes(funcionario.getCpf(), funcionario.getNome(), funcao.getDescricao());
-        // Adiciona o filme na filmografia do usuario junto de sua funcao especifica neste filme
-        funcionario.adicionarFuncao(filme.getNome()+"-ID:"+filme.getId(), funcao);
+        try{
+            Filme filme = filmes.get(filmeId);
+            Funcionario funcionario = getFuncionario(funcionarioCpf);
+
+            // Adiciona o funcionário ao elenco geral do filme na classe FILME
+            filme.atualizarFuncoes(funcionario.getCpf(), funcionario.getNome(), funcao.getDescricao());
+            // Adiciona o filme na filmografia do usuario junto de sua funcao especifica neste filme
+            funcionario.adicionarFuncao(filme.getNome()+"-ID:"+filme.getId(), funcao);
+        } catch(Exception e){
+            System.out.println("Erro ao atualizar a função do funcionário: " + e);
+        }
     }
 
     public Filme cadastrarFilme(String nomeFilme, int anoFilme, String filmeId) {
-        Filme novoFilme = new Filme(nomeFilme, anoFilme, filmeId);
-        filmes.put(filmeId, novoFilme);
-        System.out.println("\nFilme '" + nomeFilme + "' cadastrado com sucesso!\n");
-        return novoFilme;
+
+        try{
+            Filme novoFilme = new Filme(nomeFilme, anoFilme, filmeId);
+            filmes.put(filmeId, novoFilme);
+            System.out.println("\nFilme '" + nomeFilme + "' cadastrado com sucesso!\n");
+            return novoFilme;
+        } catch(Exception e){
+            System.out.println("Erro ao cadastrar o filme: " + e);
+            return null;
+        }
     }
 
     public void obterFilmes() {
-        if (filmes.isEmpty()) {
-            System.out.println("Nenhum filme cadastrado.");
-        } else {
-            System.out.print("----------------------------------------------\nFilmes cadastrados:\n");
-            for (Filme filme : filmes.values()) {
-                System.out.println(filme.toString());
+
+        try{
+            if (filmes.isEmpty()) {
+                System.out.println("Nenhum filme cadastrado.");
+            } else {
+                System.out.print("----------------------------------------------\nFilmes cadastrados:\n");
+                for (Filme filme : filmes.values()) {
+                    System.out.println(filme.toString());
+                }
+                
             }
-            
+        } catch(Exception e){
+            System.out.println("Erro ao realizar a consulta: " + e);
         }
     }
 

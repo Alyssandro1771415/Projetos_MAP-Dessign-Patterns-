@@ -19,57 +19,51 @@ public class Funcionario {
     }
 
     public void adicionarFilme(Funcao funcao, String filmeCodigo) {
-        // Verifica se o filme já está na filmografia
-        List<Funcao> funcoesNoFilme = this.filmografia.get(filmeCodigo);
+        try {
+            List<Funcao> funcoesNoFilme = this.filmografia.get(filmeCodigo);
 
-        // Se o filme não estiver na filmografia, cria uma nova lista de funcoes e
-        // adiciona o filme
-        if (funcoesNoFilme == null) {
-            funcoesNoFilme = new ArrayList<>();
-            this.filmografia.put(filmeCodigo, funcoesNoFilme);
-        }
+            if (funcoesNoFilme == null) {
+                funcoesNoFilme = new ArrayList<>();
+                this.filmografia.put(filmeCodigo, funcoesNoFilme);
+            }
 
-        // Adiciona a funcao à lista de funcoes para o filme
-        if (!funcoesNoFilme.contains(funcao)) {
-            funcoesNoFilme.add(funcao);
-        }
+            if (!funcoesNoFilme.contains(funcao)) {
+                funcoesNoFilme.add(funcao);
+            }
 
-        /*  Adiciona a funcao à lista de funcoes do funcionário se ainda não estiver
-        presente*/
-        if (!this.funcoes.contains(funcao)) {
-            this.funcoes.add(funcao);
+            if (!this.funcoes.contains(funcao)) {
+                this.funcoes.add(funcao);
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao adicionar filme: " + e.getMessage());
         }
     }
-
 
     public void adicionarFuncao(String filmeCodigo, Funcao novaFuncao) {
-        // Verifica se a função já está na lista de funções do funcionário
-        if (this.funcoes.contains(novaFuncao)) {
-            System.out.println("Erro: A função já está atribuída ao funcionário.");
-            return;
-        }
-        
-        // Adiciona a função à lista de funções do funcionário
-        this.funcoes.add(novaFuncao);
-        
-        // Atualiza a filmografia
-        List<Funcao> funcoesNoFilme = this.filmografia.get(filmeCodigo);
-    
-        if (funcoesNoFilme == null) {
-            // Se o filme não estiver na filmografia, cria uma nova lista de funções e adiciona o filme
-            funcoesNoFilme = new ArrayList<>();
-            this.filmografia.put(filmeCodigo, funcoesNoFilme);
-        }
-    
-        // Verifica se a função já está associada ao filme
-        if (funcoesNoFilme.contains(novaFuncao)) {
-            System.out.println("Erro: A função já está atribuída ao filme para este funcionário.");
-        } else {
-            // Adiciona a nova função à lista de funções para o filme
-            funcoesNoFilme.add(novaFuncao);
+        try {
+            if (this.funcoes.contains(novaFuncao)) {
+                System.out.println("Erro: A função já está atribuída ao funcionário.");
+                return;
+            }
+
+            this.funcoes.add(novaFuncao);
+
+            List<Funcao> funcoesNoFilme = this.filmografia.get(filmeCodigo);
+
+            if (funcoesNoFilme == null) {
+                funcoesNoFilme = new ArrayList<>();
+                this.filmografia.put(filmeCodigo, funcoesNoFilme);
+            }
+
+            if (funcoesNoFilme.contains(novaFuncao)) {
+                System.out.println("Erro: A função já está atribuída ao filme para este funcionário.");
+            } else {
+                funcoesNoFilme.add(novaFuncao);
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao adicionar função: " + e.getMessage());
         }
     }
-    
 
     public String getNome() {
         return this.nome;
@@ -88,42 +82,47 @@ public class Funcionario {
     }
 
     public String toStringFilmografia() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("_____________________________________________________________________\n");
-        sb.append("Filmografia de: " + this.nome + "\n");
-        sb.append(String.format("%-30s %-30s\n", "Filme", "Funcao"));
-        sb.append("--------------------------------------------\n");
+        try {
+            StringBuilder sb = new StringBuilder();
+            sb.append("_____________________________________________________________________\n");
+            sb.append("Filmografia de: " + this.nome + "\n");
+            sb.append(String.format("%-30s %-30s\n", "Filme", "Funcao"));
+            sb.append("--------------------------------------------\n");
 
-        // Adiciona as informações da filmografia
-        for (Map.Entry<String, List<Funcao>> entry : filmografia.entrySet()) {
-            String filme = entry.getKey();
-            List<Funcao> funcoes = entry.getValue();
-            for (Funcao funcao : funcoes) {
-                sb.append(String.format("%-30s %-30s\n", filme, funcao.getDescricao()));
+            for (Map.Entry<String, List<Funcao>> entry : filmografia.entrySet()) {
+                String filme = entry.getKey();
+                List<Funcao> funcoes = entry.getValue();
+                for (Funcao funcao : funcoes) {
+                    sb.append(String.format("%-30s %-30s\n", filme, funcao.getDescricao()));
+                }
             }
-        }
 
-        sb.append("_____________________________________________________________________\n");
-        return sb.toString();
+            sb.append("_____________________________________________________________________\n");
+            return sb.toString();
+        } catch (Exception e) {
+            return "Erro ao gerar string da filmografia: " + e.getMessage();
+        }
     }
 
     @Override
     public String toString() {
-        StringBuilder funcoesDescricao = new StringBuilder();
+        try {
+            StringBuilder funcoesDescricao = new StringBuilder();
 
-        // Construindo a descricao das funcoes com um formato mais amigável
-        for (Funcao funcao : this.funcoes) {
-            funcoesDescricao.append("- ").append(funcao.getDescricao()).append("\n");
+            for (Funcao funcao : this.funcoes) {
+                funcoesDescricao.append("- ").append(funcao.getDescricao()).append("\n");
+            }
+
+            String descricaoFuncoes = funcoesDescricao.length() > 0 ? funcoesDescricao.toString()
+                    : "Nenhuma funcao atribuída";
+
+            return "___________________________________________\n" +
+                    "Funcionario: " + this.nome + "\n" +
+                    "CPF: " + this.cpf + "\n" +
+                    "Funcoes:\n" + descricaoFuncoes +
+                    "___________________________________________";
+        } catch (Exception e) {
+            return "Erro ao gerar string do funcionário: " + e.getMessage();
         }
-
-        // Se não houver funcoes, adicionar uma mensagem padrão
-        String descricaoFuncoes = funcoesDescricao.length() > 0 ? funcoesDescricao.toString()
-                : "Nenhuma funcao atribuída";
-
-        return "___________________________________________\n" +
-                "Funcionario: " + this.nome + "\n" +
-                "CPF: " + this.cpf + "\n" +
-                "Funcoes:\n" + descricaoFuncoes +
-                "___________________________________________";
     }
 }
