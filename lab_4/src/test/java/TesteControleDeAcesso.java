@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import lab_4.ControleDeAcesso;
 import lab_4.Filme;
-import lab_4.Funcao;
 import lab_4.Funcionario;
 
 import java.util.List;
