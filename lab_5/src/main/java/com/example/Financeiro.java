@@ -4,8 +4,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Financeiro {
+    
     HashMap<String, Float> contas;
     HashMap<String, Float> pagamentosServidores;
+
+    public HashMap<String, Float> getContas() {
+        return contas;
+    }
+
+    public HashMap<String, Float> getPagamentosServidores() {
+        return pagamentosServidores;
+    }
 
     public Financeiro() {
         contas = new HashMap<>();
@@ -26,13 +35,14 @@ public class Financeiro {
         }
     }
 
-    public void adicionarConta(float valor, String titulo, String data, String departamento) {
+    public String adicionarConta(float valor, String titulo, String data, String departamento) {
         if (valor <= 0 || titulo == null || data == null || departamento == null) {
             throw new IllegalArgumentException("Erro: Dados inválidos para adicionar conta.");
         }
         String descricao = titulo + " - " + data + " - " + departamento;
         contas.put(descricao, valor);
         System.out.println("Conta adicionada: " + descricao + " com valor " + valor);
+        return "Conta adicionada: " + descricao + " com valor " + valor;
     }
 
     public String deletarConta(String titulo, String data, String departamento) {

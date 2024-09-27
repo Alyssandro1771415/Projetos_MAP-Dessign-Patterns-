@@ -88,12 +88,14 @@ public class Fachada {
         almoxarifado.adicionarItem(nomeItem, quantidade);
     }
 
-    public void mostrarEstoque() {
+    public String mostrarEstoque() {
         System.out.println(almoxarifado.mostrarEstoque());
+        return almoxarifado.mostrarEstoque();
     }
 
-    public void pedidoDeCompra(String nomeItem, int quantidade) {
-        almoxarifado.pedidoDeCompra(nomeItem, quantidade);
+    public String pedidoDeCompra(String nomeItem, int quantidade) {
+        String string = almoxarifado.pedidoDeCompra(nomeItem, quantidade);
+        return string;
     }
 
     // Métodos para o subsistema Infraestrutura
@@ -110,8 +112,9 @@ public class Fachada {
     }
 
     // Métodos para o subsistema Administrativo
-    public void agendarReuniao(String departamento, String nome, String data, String horario) {
-        administrativo.agendarReuniao(departamento, nome, data, horario);
+    public String agendarReuniao(String departamento, String nome, String data, String horario) {
+        String string = administrativo.agendarReuniao(departamento, nome, data, horario);
+        return string;
     }
 
     public void marcarEntrevista(String departamento, String nomeChefeReuniao, String data, String horario) {
@@ -119,8 +122,9 @@ public class Fachada {
     }
 
     // Métodos para o subsistema Financeiro
-    public void registrarConta(float valor, String titulo, String data, String departamento) {
-        financeiro.adicionarConta(valor, titulo, data, departamento);
+    public String registrarConta(float valor, String titulo, String data, String departamento) {
+        String string = financeiro.adicionarConta(valor, titulo, data, departamento);
+        return string;
     }
 
     public void gerarRelatorioFinanceiro() {
