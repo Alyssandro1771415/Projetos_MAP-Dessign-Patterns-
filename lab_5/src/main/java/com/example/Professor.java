@@ -20,6 +20,7 @@ public class Professor implements Pessoa{
         contador = 1; 
     }
     
+    @Override
     public String getNome() {
         return nome;
     }
@@ -29,7 +30,7 @@ public class Professor implements Pessoa{
     }
     
     public String getTempoDeCasa() {
-        return tempoDeCasa;
+        return "Professor : "+this.nome + ", Tempo de casa: " + this.tempoDeCasa;
     }
     
     public void setTempoDeCasa(String novoTempoDeCasa) {

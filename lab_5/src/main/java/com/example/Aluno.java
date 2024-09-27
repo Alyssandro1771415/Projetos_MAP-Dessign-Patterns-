@@ -11,14 +11,16 @@ public class Aluno implements Pessoa{
     private int contador; // Contador para gerar chaves únicas
     private int periodo;
     
-    public Aluno(String id, String nome, String curso) {
+    public Aluno(String id, String nome, String curso, int periodo) {
         this.id = id;
         this.nome = nome;
         this.curso = curso;
+        this.periodo = periodo;
         this.turmaHistorico = new HashMap<>();
         this.contador = 1; 
     }
 
+    @Override
     public String getNome() {
         return this.nome;
     }
@@ -82,7 +84,7 @@ public class Aluno implements Pessoa{
         }
         
         StringBuilder historico = new StringBuilder();
-        historico.append("Histórico do aluno (ID: ").append(id).append("):\n");
+        historico.append("Histórico do aluno: "+ this.nome + "(ID: ").append(id).append("):\n");
     
         for (String chave : turmaHistorico.keySet()) {
             historico.append(chave).append(" => ").append(turmaHistorico.get(chave)).append("\n");
@@ -99,7 +101,7 @@ public class Aluno implements Pessoa{
             return rdm.append("Erro: Nenhum histórico encontrado para o aluno.\n").toString();
         }
     
-        rdm.append("Disciplinas no período ").append(periodo).append(":\n");
+        rdm.append("------------------------------------------------------------------------------------------------------\nAluno: " + this.nome + "\nRDM do ").append(periodo).append("º periodo:\n");
     
         boolean encontrouDisciplina = false; // Flag para verificar se encontrou alguma disciplina no período
     
@@ -121,7 +123,7 @@ public class Aluno implements Pessoa{
         if (!encontrouDisciplina) {
             rdm.append("Erro: Nenhuma disciplina encontrada para o período ").append(periodo).append(".\n");
         }
-    
+        rdm.append("------------------------------------------------------------------------------------------------------\n");
         return rdm.toString(); // Retorna a string construída
     }
 }
