@@ -14,7 +14,7 @@ public class Almoxarifado {
             throw new IllegalArgumentException("Erro: Dados inválidos para adicionar item ao estoque.");
         }
         estoque.put(nomeItem, estoque.getOrDefault(nomeItem, 0) + quantidade);
-        System.out.println("Item adicionado ao estoque: " + nomeItem + ", Quantidade: " + quantidade);
+        System.out.println("\nItem adicionado ao estoque: " + nomeItem + ", Quantidade: " + quantidade);
     }
 
     public String mostrarEstoque() {
@@ -22,7 +22,7 @@ public class Almoxarifado {
             return "Estoque vazio. Nenhum item disponível.";
         }
         StringBuilder resultado = new StringBuilder();
-        resultado.append("Estoque Atual:\n");
+        resultado.append("\nEstoque Atual:\n");
         for (String item : estoque.keySet()) {
             resultado.append(item).append(": ").append(estoque.get(item)).append(" unidades\n");
         }

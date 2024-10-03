@@ -22,14 +22,14 @@ public class Financeiro {
     }
 
     public void gerarFolhaDePagamento() {
-        System.out.println("Folha de pagamento:");
+        System.out.println("\nFolha de pagamento:");
         for (Map.Entry<String, Float> entry : pagamentosServidores.entrySet()) {
             System.out.println("Servidor: " + entry.getKey() + ", Valor: " + entry.getValue());
         }
     }
 
     public void mostrarBalanco() {
-        System.out.println("Balanço de contas:");
+        System.out.println("\nBalanço de contas:");
         for (Map.Entry<String, Float> entry : contas.entrySet()) {
             System.out.println("Conta: " + entry.getKey() + ", Valor: " + entry.getValue());
         }

@@ -132,6 +132,10 @@ public class Fachada {
         financeiro.mostrarBalanco();
     }
 
+    public void registrarPagamentoServidor(float valor, String nome, String data, String departamento){
+        financeiro.adicionarPagamentoServidor( valor,  nome,  data,  departamento);
+    }
+
     // - Métodos adicionais
 
     private boolean verificaSeExisteNaLista(String valor, List<Pessoa> lista) {
