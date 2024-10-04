@@ -5,8 +5,6 @@ import java.util.List;
 
 public class FacadeManipuladorFiguras {
 
-    //Observação: Os métodos desta classe manipulam uma lista de figuras e o visitor passam por elas.
-    //Implementação de lista para o programa possuir quantas figuras for necessário.
     private List<Figura> figuras;
     private Visitante visitanteDesenho;
     private Visitante visitanteArea;
@@ -21,12 +19,18 @@ public class FacadeManipuladorFiguras {
         visitanteInfo = new VisitanteInfo();
     }
 
-    public String adicionarFigura(Figura figura) {
+    public String adicionarFigura(Figura figura) throws Exception {
+        if (figura == null) {
+            throw new Exception("Figura não pode ser nula.");
+        }
         figuras.add(figura);
-        return "Adicionado: "+figura.aceitar(visitanteInfo) + ".\n";
+        return "Adicionado: " + figura.aceitar(visitanteInfo) + ".\n";
     }
 
-    public String desenharFiguras() {
+    public String desenharFiguras() throws Exception {
+        if (figuras.isEmpty()) {
+            throw new Exception("Não há figuras para desenhar.");
+        }
         StringBuilder sb = new StringBuilder();
         sb.append("Desenho:\n");
         for (Figura figura : figuras) {
@@ -35,7 +39,10 @@ public class FacadeManipuladorFiguras {
         return sb.toString();
     }
 
-    public String calcularAreas() {
+    public String calcularAreas() throws Exception {
+        if (figuras.isEmpty()) {
+            throw new Exception("Não há figuras para calcular a área.");
+        }
         StringBuilder sb = new StringBuilder();
         sb.append("\nÁrea:\n");
         for (Figura figura : figuras) {
@@ -44,7 +51,10 @@ public class FacadeManipuladorFiguras {
         return sb.toString();
     }
 
-    public String maximizarFiguras() {
+    public String maximizarFiguras() throws Exception {
+        if (figuras.isEmpty()) {
+            throw new Exception("Não há figuras para maximizar.");
+        }
         StringBuilder sb = new StringBuilder();
         sb.append("\nMaximização:\n");
         for (Figura figura : figuras) {

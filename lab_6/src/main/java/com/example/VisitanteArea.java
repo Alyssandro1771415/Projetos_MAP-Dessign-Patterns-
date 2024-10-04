@@ -1,5 +1,5 @@
 package com.example;
-//ConcreteVisitors
+
 public class VisitanteArea implements Visitante {
     @Override
     public String visitarCirculo(Circulo c) {

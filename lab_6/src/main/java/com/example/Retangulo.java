@@ -1,10 +1,12 @@
 package com.example;
 
-// Elemento concreto
-public class Retangulo implements Figura {
+public class Retangulo implements Figura{
     private double largura, altura;
 
-    public Retangulo(double largura, double altura) {
+    public Retangulo(double largura, double altura) throws Exception {
+        if (largura < 0 || altura < 0){
+            throw new Exception("Dados negativos não são aceitáveis!");
+        }
         this.largura = largura;
         this.altura = altura;
     }

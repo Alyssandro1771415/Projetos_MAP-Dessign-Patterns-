@@ -1,5 +1,5 @@
 package com.example;
-//Visitor
+
 public interface Visitante {
     String visitarCirculo(Circulo c);
     String visitarTriangulo(Triangulo t);

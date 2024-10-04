@@ -4,7 +4,10 @@ package com.example;
 public class Trapezio implements Figura {
     private double baseMaior, baseMenor, altura;
 
-    public Trapezio(double baseMaior, double baseMenor, double altura) {
+    public Trapezio(double baseMaior, double baseMenor, double altura) throws Exception {
+        if (baseMaior < 0 || baseMenor < 0 || altura < 0){
+            throw new Exception("Dados negativos não são aceitáveis");
+        }
         this.baseMaior = baseMaior;
         this.baseMenor = baseMenor;
         this.altura = altura;

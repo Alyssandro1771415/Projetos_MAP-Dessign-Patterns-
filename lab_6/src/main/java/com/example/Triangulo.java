@@ -1,10 +1,12 @@
 package com.example;
 
-// Elemento concreto
 public class Triangulo implements Figura {
     private double base, altura;
 
-    public Triangulo(double base, double altura) {
+    public Triangulo(double base, double altura) throws Exception {
+        if (base < 0 || altura < 0){
+            throw new Exception("Dados negativos não são válidos!");
+        }
         this.base = base;
         this.altura = altura;
     }

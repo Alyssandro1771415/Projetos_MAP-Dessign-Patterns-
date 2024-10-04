@@ -1,5 +1,4 @@
 package com.example;
-//ConcreteVisitors
 
 public class VisitanteInfo implements Visitante {
     @Override
