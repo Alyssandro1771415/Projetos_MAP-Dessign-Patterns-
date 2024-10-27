@@ -28,8 +28,12 @@ public class ListToMapAdapter<K, V> implements CustomMap<Integer, V> {
 
     @Override
     public boolean equals(Object o) {
-        return list.equals(o);
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ListToMapAdapter<?, ?> that = (ListToMapAdapter<?, ?>) o;
+        return Objects.equals(list, that.list);
     }
+    
 
     @Override
     public V get(Object key) {
@@ -70,5 +74,4 @@ public class ListToMapAdapter<K, V> implements CustomMap<Integer, V> {
         return list;
     }
 
-    // Outros métodos da interface Map podem ser implementados com exceções ou como não suportados.
 }

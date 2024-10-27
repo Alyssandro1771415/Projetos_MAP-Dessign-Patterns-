@@ -28,8 +28,13 @@ public class MapToListAdapter<K, V> implements CustomList<V>, Iterable<V> { // A
 
     @Override
     public boolean equals(Object o) {
-        return map.equals(o);
+        if (this == o) return true; 
+        if (o == null || getClass() != o.getClass()) return false; 
+    
+        MapToListAdapter<?, ?> that = (MapToListAdapter<?, ?>) o;
+        return map.equals(that.map);
     }
+    
 
     @Override
     public V get(int index) {
