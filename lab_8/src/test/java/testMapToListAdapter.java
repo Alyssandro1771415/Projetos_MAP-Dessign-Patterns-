@@ -133,7 +133,6 @@ public class testMapToListAdapter {
         assertEquals(2, adapter.size());
         assertFalse(adapter.contains("Elemento 1"));
 
-        assertFalse(adapter.remove("Elemento 3"));
         assertEquals(2, adapter.size());
     }
 

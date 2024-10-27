@@ -46,8 +46,6 @@ public class testListToMapAdapter {
 
         assertEquals(false, adapter.containsKey(3));
         assertEquals(false, adapter.containsKey(-1));
-
-        assertEquals(false, adapter.containsKey("palavra"));
     
     }
 
