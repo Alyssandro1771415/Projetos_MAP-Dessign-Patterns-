@@ -59,7 +59,7 @@ public class Cliente {
             }
 
             System.out.println("\nLista adaptada para Map: Retornando o valor para a chave 2: " + listToMapAdapter.get(2));
-            System.out.println("\nLista adaptada para Map: Verificando se o map normal contém o valor de tipo string \"Elemento A\": " + (listToMapAdapter.containsValue("Elemento A") ? "Contém" : "Não contém"));
+            System.out.println("\nLista adaptada para Map: Verificando se a lista adaptada para map contém o valor de tipo string \"Elemento A\": " + (listToMapAdapter.containsValue("Elemento A") ? "Contém" : "Não contém"));
 
         } catch (IllegalArgumentException e) {
             System.err.println("Erro: " + e.getMessage());
