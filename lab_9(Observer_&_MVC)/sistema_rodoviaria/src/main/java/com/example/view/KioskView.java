@@ -38,7 +38,6 @@ public class KioskView extends JFrame implements SeatStatusChangeListener {
 
         setVisible(true);
 
-        // Atualiza a exibição inicial
         updateSeatList();
     }
 

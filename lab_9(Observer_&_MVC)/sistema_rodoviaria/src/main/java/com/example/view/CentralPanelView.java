@@ -4,7 +4,6 @@ import com.example.model.SeatStatusChangeEvent;
 import com.example.model.SeatStatusChangeListener;
 import com.example.model.Seat;
 import com.example.model.Bus;
-import com.example.model.SeatStatus;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,7 +39,6 @@ public class CentralPanelView extends JFrame implements SeatStatusChangeListener
 
         setVisible(true);
 
-        // Atualiza a exibição inicial
         updateSeatList();
     }
 
