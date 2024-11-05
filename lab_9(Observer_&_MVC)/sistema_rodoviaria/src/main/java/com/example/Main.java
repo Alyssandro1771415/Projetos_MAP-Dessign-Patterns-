@@ -20,16 +20,16 @@ public class Main {
         TicketController controller = new TicketController(bus);
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             controller.reserveSeat(1);
 
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             controller.buySeat(2);
 
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             controller.reserveSeat(3);
 
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             controller.buySeat(3);
 
 
