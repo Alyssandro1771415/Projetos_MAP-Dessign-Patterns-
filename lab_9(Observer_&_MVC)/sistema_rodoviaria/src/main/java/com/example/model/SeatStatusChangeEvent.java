@@ -17,4 +17,3 @@ public class SeatStatusChangeEvent {
         return newStatus;
     }
 }
-

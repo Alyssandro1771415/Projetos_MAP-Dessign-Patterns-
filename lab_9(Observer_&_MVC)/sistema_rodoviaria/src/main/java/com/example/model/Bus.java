@@ -39,4 +39,10 @@ public class Bus {
     public List<Seat> getSeats() {
         return seats;
     }
+
+    public List<SeatStatusChangeListener> getListeners(){
+
+        return this.listeners;
+
+    }
 }
