@@ -38,7 +38,7 @@ public class Main {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        
-        System.exit(0);
+
+        // System.exit(0);
     }
 }

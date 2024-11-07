@@ -11,7 +11,7 @@ import com.example.model.Bus;
 import com.example.model.Seat;
 import com.example.model.SeatStatus;
 
-public class TestTicketController {
+public class TesteTicketController {
 
     Bus onibus;
     TicketController controleDePassagem;
