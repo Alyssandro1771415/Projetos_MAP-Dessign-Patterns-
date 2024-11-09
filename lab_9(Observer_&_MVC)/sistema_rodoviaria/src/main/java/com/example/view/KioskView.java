@@ -19,7 +19,7 @@ public class KioskView extends JFrame implements SeatStatusChangeListener {
         if(bus == null){
             throw new IllegalArgumentException("The bus can`t be a null argument!");
         }
-        if(bus.getSeats().size() <= 0){
+        if(bus.getSeats().size() < 0){
             throw new IllegalArgumentException("Seat number invalid, it must be a positive integer!");
         }
 
