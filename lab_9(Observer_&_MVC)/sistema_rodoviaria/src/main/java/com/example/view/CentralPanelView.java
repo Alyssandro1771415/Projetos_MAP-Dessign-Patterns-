@@ -15,6 +15,14 @@ public class CentralPanelView extends JFrame implements SeatStatusChangeListener
     private Bus bus;
 
     public CentralPanelView(Bus bus) {
+
+        if(bus == null){
+            throw new IllegalArgumentException("The bus can`t be a null argument!");
+        }
+        if(bus.getSeats().size() <= 0){
+            throw new IllegalArgumentException("Seat number invalid, it must be a positive integer!");
+        }
+
         this.bus = bus;
 
         setTitle("Painel Central");
@@ -44,10 +52,14 @@ public class CentralPanelView extends JFrame implements SeatStatusChangeListener
 
     @Override
     public void seatStatusChanged(SeatStatusChangeEvent event) {
+        if(event == null){
+            throw new IllegalArgumentException("The event of the update seat status ca`t be null!");
+        }
         updateSeatList();
     }
 
     private void updateSeatList() {
+
         StringBuilder seatList = new StringBuilder();
 
         for (Seat seat : bus.getSeats()) {

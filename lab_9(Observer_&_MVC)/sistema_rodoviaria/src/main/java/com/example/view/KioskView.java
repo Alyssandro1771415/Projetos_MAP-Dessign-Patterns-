@@ -15,6 +15,14 @@ public class KioskView extends JFrame implements SeatStatusChangeListener {
     private Bus bus;
 
     public KioskView(Bus bus) {
+
+        if(bus == null){
+            throw new IllegalArgumentException("The bus can`t be a null argument!");
+        }
+        if(bus.getSeats().size() <= 0){
+            throw new IllegalArgumentException("Seat number invalid, it must be a positive integer!");
+        }
+
         this.bus = bus;
 
         setTitle("Quiosque");
@@ -43,6 +51,9 @@ public class KioskView extends JFrame implements SeatStatusChangeListener {
 
     @Override
     public void seatStatusChanged(SeatStatusChangeEvent event) {
+        if(event == null){
+            throw new IllegalArgumentException("The event of the update seat status ca`t be null!");
+        }
         updateSeatList();
     }
 
@@ -52,6 +63,11 @@ public class KioskView extends JFrame implements SeatStatusChangeListener {
         StringBuilder unavailableSeats = new StringBuilder("Indisponíveis:\n");
 
         for (Seat seat : bus.getSeats()) {
+
+            if(seat == null){
+                throw new IllegalArgumentException("The seat can`t be a null argument!");
+            }
+
             switch (seat.getStatus()) {
                 case AVAILABLE:
                     availableSeats.append("Assento ").append(seat.getNumber()).append("\n");
