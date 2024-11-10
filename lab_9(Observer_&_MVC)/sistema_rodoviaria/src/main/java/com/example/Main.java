@@ -7,19 +7,21 @@ import com.example.view.KioskView;
 
 public class Main {
     public static void main(String[] args) {
-        Bus bus = new Bus(10);
-        CentralPanelView centralPanelView = new CentralPanelView(bus);
-        KioskView kioskView = new KioskView(bus);
+        try{
+        
+            Bus bus = new Bus(10);
+            CentralPanelView centralPanelView = new CentralPanelView(bus);
+            KioskView kioskView = new KioskView(bus);
 
-        centralPanelView.setLocation(0, 0);
-        kioskView.setLocation(centralPanelView.getWidth(), 0);
+            centralPanelView.setLocation(0, 0);
+            kioskView.setLocation(centralPanelView.getWidth(), 0);
 
-        bus.addSeatStatusChangeListener(centralPanelView);
-        bus.addSeatStatusChangeListener(kioskView);
+            bus.addSeatStatusChangeListener(centralPanelView);
+            bus.addSeatStatusChangeListener(kioskView);
 
-        TicketController controller = new TicketController(bus);
+            TicketController controller = new TicketController(bus);
 
-        try {
+        
             Thread.sleep(2000);
             controller.reserveSeat(1);
 
