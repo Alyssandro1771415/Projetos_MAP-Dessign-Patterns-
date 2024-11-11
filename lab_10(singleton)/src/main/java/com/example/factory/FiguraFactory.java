@@ -30,7 +30,11 @@ public class FiguraFactory {
     }
 
     public Triangulo criarTriangulo(String tipo) {
-        return triangulos.get(tipo.toLowerCase());
+        Triangulo triangulo = triangulos.get(tipo.toLowerCase());
+        if (triangulo == null) {
+            throw new IllegalArgumentException("Tipo de triângulo inválido: " + tipo);
+        }
+        return triangulo;
     }
 
     public Quadrado criarQuadrado() {
