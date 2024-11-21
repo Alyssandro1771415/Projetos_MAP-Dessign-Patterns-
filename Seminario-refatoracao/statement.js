@@ -72,4 +72,4 @@ const plays = {
 };
 
 
-console.log(statement(invoices, plays));
+console.log(statement(invoices[0], plays));
